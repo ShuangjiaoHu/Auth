@@ -2,22 +2,16 @@ const express = require('express');
 const app = express();
 const mongoose = require('./db/mongoose');
 const bcrypt = require('bcrypt');
+const userRoutes = require('./routes/user-routes');
+const bodyParser = require('body-parser');
 
-let password = 'myPassword';
-
-let salt = bcrypt.genSaltSync(12);
-
-let hashedPassword = bcrypt.hashSync(password, salt);
-
-console.log(hashedPassword);
-
-let compare = bcrypt.compareSync('myFakeone', hashedPassword);
-
-console.log(compare);
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     res.send('welcome!');
 });
+
+app.get('/user', userRoutes);
 
 const PORT = 3000;
 
